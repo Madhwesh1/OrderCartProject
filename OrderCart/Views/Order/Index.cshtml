@@ -1,0 +1,97 @@
+﻿@model OrderCart.Models.Cart
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+}
+
+
+<div>
+    <h4>Cart Order Details </h4>
+    <hr />
+    @{
+        if (Model!=null && Model.Product != null && Model.Product.Count() > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <label>Id</label>
+                        </th>
+                        <th>
+                            <label>Title</label>
+                        </th>
+                        <th>
+                            <label>Price</label>
+                        </th>
+                        <th>
+                            <label>Quantity</label>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Product)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+                            <td>
+
+                                @Html.ActionLink("Delete", "Delete", item)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div>
+
+                <div>
+                    <label>Total Price: </label> &ensp;
+                    @Model.price
+                </div>
+                <div>
+                    <label>Order Status</label> &ensp;
+                    @Model.orderStatus
+                </div>
+            </div>
+        }
+
+        else
+        {
+            <div>
+                <p> There are no items in the cart</p>
+            </div>
+        }
+
+    }
+
+
+</div>
+<div class="offset-lg-4">
+    @{
+        if (Model != null && Model.Product != null && Model.Product.Count() > 0)
+        {
+            <div>
+                @Html.ActionLink("Confirm Order", "Create", Model)
+            </div>
+
+        }
+    }
+
+    <div>
+        <a asp-action="Index" asp-controller="Product">Back to List</a>
+    </div>
+
+</div>
+

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<OrderCart.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+}
+
+<h1>Product List</h1>
+
+<p>
+    
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                <label>Rating</label>
+            </th>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.Rating.Count)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    <asp:Image src="@Html.DisplayFor(modelItem => item.Image)"></asp:Image>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating.Rate)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.Rating.Count)
+                    
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new Product() { Category=item.Category, Description=item.Description,Rating= item.Rating, Id=item.Id, Image= item.Image, Price= item.Price, Title= item.Title }  ) |
+                    @Html.ActionLink("Add to Cart", "Edit", new Product() { Category = item.Category, Description = item.Description, Rating = item.Rating, Id = item.Id, Image = item.Image, Price = item.Price, Title = item.Title })
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (@Context.Request.Cookies["Alert"] !=null)
+{
+<script type="text/javascript">
+            window.onload = function () {
+                alert("@Context.Request.Cookies["Alert"].ToString()");
+            };
+</script>
+  
+
+}
