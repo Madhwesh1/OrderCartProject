@@ -20,7 +20,7 @@ namespace OrderCart.Controllers
             this.configuration = configuration;
         }
 
-        public IActionResult Index()
+        public IActionResult Index( string SearchString="")
         {
             try
             {
@@ -28,6 +28,10 @@ namespace OrderCart.Controllers
                 HttpResponseMessage response = serviceRepository.GetResponse("products/");
                 response.EnsureSuccessStatusCode();
                 List<Models.Product> products = response.Content.ReadAsAsync<List<Models.Product>>().Result;
+                if (!string.IsNullOrEmpty(SearchString))
+                {
+                    products = products.Where(s => s.Title.ToUpper().Contains(SearchString.ToUpper())).ToList();
+                }
                 return View(products);
             }
             catch (Exception ex)

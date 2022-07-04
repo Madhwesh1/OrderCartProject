@@ -7,9 +7,13 @@
 
 <h1>Product List</h1>
 
-<p>
-    
-</p>
+<form asp-controller="Product" asp-action="Index" method="get">
+    <p>
+        Search: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -63,10 +67,10 @@
                 </td>
                 <td hidden>
                     @Html.DisplayFor(modelItem => item.Rating.Count)
-                    
+
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new Product() { Category=item.Category, Description=item.Description,Rating= item.Rating, Id=item.Id, Image= item.Image, Price= item.Price, Title= item.Title }  ) |
+                    @Html.ActionLink("Details", "Details", new Product() { Category = item.Category, Description = item.Description, Rating = item.Rating, Id = item.Id, Image = item.Image, Price = item.Price, Title = item.Title }) |
                     @Html.ActionLink("Add to Cart", "Edit", new Product() { Category = item.Category, Description = item.Description, Rating = item.Rating, Id = item.Id, Image = item.Image, Price = item.Price, Title = item.Title })
 
                 </td>
@@ -75,13 +79,13 @@
     </tbody>
 </table>
 
-@if (@Context.Request.Cookies["Alert"] !=null)
+@if (@Context.Request.Cookies["Alert"] != null)
 {
-<script type="text/javascript">
+    <script type="text/javascript">
             window.onload = function () {
                 alert("@Context.Request.Cookies["Alert"].ToString()");
             };
-</script>
-  
+    </script>
+
 
 }
